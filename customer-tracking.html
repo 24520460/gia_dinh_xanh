@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="vi" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theo Dõi Đơn Hàng Live - Gia Đình Xanh</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind Play CDN with Theme Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#005c55',
+              dark: '#004742',
+              light: '#007a71',
+              50: '#e6f5f3'
+            },
+            secondary: {
+              DEFAULT: '#a73a00',
+              dark: '#852e00',
+              light: '#c74700'
+            },
+            surface: '#faf8ff'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="./css/theme.css" />
+  <link rel="stylesheet" href="./css/animations.css" />
+</head>
+<body class="bg-[#FAF8FF] text-[#131B2E] min-h-screen flex flex-col font-sans">
+
+  <!-- Top App Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-16">
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="text-xl font-bold text-[#005C55] tracking-tight flex items-center gap-2">
+          <span class="material-symbols-outlined text-[26px] text-[#005C55]" style="font-variation-settings: 'FILL' 1;">eco</span>
+          <span>Gia Đình Xanh</span>
+        </a>
+        <span class="hidden sm:inline-block w-px h-5 bg-slate-200"></span>
+        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+          <span>Hệ thống giám sát hiện trường Live</span>
+        </div>
+      </div>
+
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold">
+        <a href="index.html" class="text-slate-600 hover:text-[#005C55] transition-colors">Trang chủ</a>
+        <a href="customer-booking.html" class="text-slate-600 hover:text-[#005C55] transition-colors">Đặt dịch vụ khác</a>
+        <a href="customer-appointments.html" class="text-slate-600 hover:text-[#005C55] transition-colors">Lịch hẹn của tôi</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Tracking Container -->
+  <main class="max-w-7xl mx-auto px-4 md:px-8 py-8 w-full flex-1 space-y-6">
+
+    <!-- Top Live Order Status Banner -->
+    <div class="bg-gradient-to-r from-slate-900 to-[#005c55] text-white rounded-3xl p-6 md:p-8 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div class="space-y-2">
+        <div class="flex items-center gap-3">
+          <span id="tracking-status-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Đang dọn dẹp tại căn hộ</span>
+          </span>
+          <span class="text-xs text-teal-200 font-bold tracking-wider">MÃ ĐƠN: <span id="tracking-order-id">#GDX-89241</span></span>
+        </div>
+
+        <h1 id="tracking-service-name" class="text-2xl md:text-3xl font-black tracking-tight">Dọn Dẹp Căn Hộ 3 Giờ Tiêu Chuẩn</h1>
+        <p class="text-xs md:text-sm text-teal-100 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">location_on</span>
+          <span id="tracking-address">Căn hộ T2-14.08 Masteri Thảo Điền, TP. Thủ Đức</span>
+        </p>
+      </div>
+
+      <!-- Countdown Clock Box -->
+      <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 md:p-5 border border-white/20 text-center min-w-[200px] shrink-0">
+        <div class="text-[11px] uppercase tracking-wider text-teal-200 font-bold mb-1">Thời Gian Còn Lại Ca Làm</div>
+        <div id="live-timer-display" class="text-3xl md:text-4xl font-black tracking-widest text-emerald-300 font-mono">01:42:15</div>
+        <div class="text-[11px] text-teal-100 mt-1">Dự kiến hoàn thành: 17:45</div>
+      </div>
+    </div>
+
+    <!-- 2 Column Layout: Partner & Checklist -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- Left Column: Partner Profile & Before/After Proof Photos -->
+      <div class="lg:col-span-5 space-y-6">
+
+        <!-- Partner Card -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h3 class="font-bold text-slate-900 text-sm">Chuyên Viên Thực Hiện Ca Làm</h3>
+            <span class="text-xs text-emerald-800 bg-emerald-100 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+              <span class="material-symbols-outlined text-xs">verified</span>
+              Đã thẩm định KYC
+            </span>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <img id="tracking-partner-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiEzjYcMYFdm-qUSY-NYx2ORlTMa1LLcB1ZG0KjhQ8JYsGl4miv5YIXg3RpVvj9JkJiKmxNwleVO2g1xwEzB9wSAyFiBpY_lrlJZ0cDjGMTsJSrdEEnn4uKo24v56YWNH7rHu6MdV8-xVlig2KwJ9pjVKViphH6P0th4AZ2YHge3GyEBptdmIqy8Fp2kaesKTublNB5Xx8neXZqXiP1g68QMQIjO43LfFw-vtqzpYu2MZBU3hsREdFEw" alt="Hoàng Thị Mai" class="w-16 h-16 rounded-2xl object-cover border-2 border-teal-500 shadow-sm" />
+            <div class="space-y-1">
+              <h4 id="tracking-partner-name" class="font-extrabold text-base text-slate-900">Hoàng Thị Mai</h4>
+              <div class="flex items-center gap-3 text-xs">
+                <span id="tracking-partner-rating" class="font-black text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">4.95 ★</span>
+                <span id="tracking-partner-jobs" class="text-slate-500 font-medium">320 ca hoàn thành</span>
+              </div>
+              <div class="text-[11px] text-slate-500">Kinh nghiệm 4 năm • Chuyên gia dọn dẹp căn hộ cao cấp</div>
+            </div>
+          </div>
+
+          <!-- Contact Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <a href="tel:0912345678" class="py-2.5 px-3 rounded-xl border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors flex items-center justify-center gap-1.5">
+              <span class="material-symbols-outlined text-base text-[#005C55]">call</span>
+              <span>Gọi Điện Thoại</span>
+            </a>
+            <button type="button" onclick="alert('Đang mở cổng trò chuyện bảo mật với cô Mai.');" class="py-2.5 px-3 rounded-xl bg-teal-50 text-[#005C55] text-xs font-bold hover:bg-teal-100 transition-colors flex items-center justify-center gap-1.5 border border-teal-200">
+              <span class="material-symbols-outlined text-base">chat</span>
+              <span>Nhắn Tin Trực Tiếp</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Before & After Proof Photos -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <span class="material-symbols-outlined text-[#005C55] text-lg">photo_camera</span>
+              <span>Bằng Chứng Nghiệm Thu Before/After</span>
+            </h3>
+            <span class="text-xs text-teal-700 font-semibold">Chụp lúc 14:48</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div class="space-y-1.5">
+              <div class="text-[11px] font-bold text-slate-600">Khu vực bếp (Before)</div>
+              <div class="rounded-xl overflow-hidden aspect-video bg-slate-100 border border-slate-200">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuALKHE9Wa7xPPb8u87R97mLUWWmiaZedHthyNwU7MCA5Vhd0fpirY9faoCxRzfSdRF5lsNiIAXXxdBDyTVOvK5JOLdlbuMupwaPsWCQEM5kLFfVCJL4Fj3KB0jMi3rUwHA_aYER51QqD_ie7PvFXxQZUoTPPTrfRvIW72v8S7tQXVI20rwLnArOVh-qK--cI2iaJoadkW7cf6FBmF3Kve_JCb8CdHUvByMVb-6fSI1a5HLuBjRU5DnhaQ" alt="Bếp Before" class="w-full h-full object-cover" />
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="text-[11px] font-bold text-slate-600">Phòng khách (Before)</div>
+              <div class="rounded-xl overflow-hidden aspect-video bg-slate-100 border border-slate-200">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQB7UU4qR7lGC3HyotTAeyjeRp2tJ5QuJPkBdkKekj_tVkF67URFzbJ2EiqKST0hQ1K4WUOSXZbqoeoJ8XMrgDKmq030Z8kAUgD5EnwWJ1o0ZpO3eABTJmyBHN8hWPEQIVFS5ndOYjBUN377yC49Hy-H5r098FK3lp4DxwBWk4W1P6gOdvA2eAcyD0iyppY3RvDr1QriUIXiGeAHmsB2bAoSqff5N4pGEY8AEJqexOIPT1msdbuXp7sA" alt="Phòng khách Before" class="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-500 italic">*Ảnh nghiệm thu hoàn thành (After) sẽ được đối tác cập nhật khi kết thúc ca làm.</p>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Live Checklist Steps & Actions -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- Checklist Progress -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base">Tiến Độ Quy Chuẩn Dọn Dẹp 5 Sao</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Quy trình kiểm tra chéo không bỏ sót ngóc ngách</p>
+            </div>
+            <div class="text-right">
+              <span class="text-sm font-black text-[#005C55]">50% Hoàn Tất</span>
+              <div class="w-24 h-2 bg-slate-100 rounded-full mt-1 overflow-hidden">
+                <div class="w-1/2 h-full bg-[#005C55] rounded-full"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Checklist Items -->
+          <div class="space-y-3">
+            <!-- Step 1 -->
+            <div class="flex items-start gap-3.5 p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/50">
+              <span class="material-symbols-outlined text-emerald-600 text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-xs text-slate-900">Thu gom rác và phân loại các phòng</h4>
+                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">15:02 Xong</span>
+                </div>
+                <p class="text-[11px] text-slate-600 mt-0.5">Đã đóng bao và mang ra phòng rác tầng 14 tháp Masteri.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex items-start gap-3.5 p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/50">
+              <span class="material-symbols-outlined text-emerald-600 text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-xs text-slate-900">Hút bụi và lau sàn toàn bộ căn hộ</h4>
+                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">15:35 Xong</span>
+                </div>
+                <p class="text-[11px] text-slate-600 mt-0.5">Sử dụng tinh dầu sả chanh tự nhiên sinh học, sàn sạch bóng không dính chân.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 (In Progress) -->
+            <div class="flex items-start gap-3.5 p-3.5 rounded-xl border border-teal-300 bg-teal-50">
+              <span class="w-5 h-5 rounded-full border-2 border-[#005C55] border-t-transparent animate-spin shrink-0 mt-0.5"></span>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-xs text-[#005C55]">Vệ sinh kính ban công và cửa sổ phòng master</h4>
+                  <span class="text-[10px] font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded-full animate-pulse">Đang lau dọn</span>
+                </div>
+                <p class="text-[11px] text-slate-600 mt-0.5">Đang gạt bụi mịn và lau bóng mặt kính hướng view sông Sài Gòn.</p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex items-start gap-3.5 p-3.5 rounded-xl border border-slate-200 bg-slate-50">
+              <span class="material-symbols-outlined text-slate-300 text-xl">radio_button_unchecked</span>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h4 class="font-bold text-xs text-slate-600">Ủi 10 áo quần sơ mi công sở</h4>
+                  <span class="text-[10px] font-bold text-slate-400 bg-slate-200 px-2 py-0.5 rounded-full">Chưa bắt đầu</span>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-0.5">Sẽ tiến hành trong 45 phút cuối ca làm việc theo yêu cầu của gia chủ.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rating & Support Actions Card -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-bold text-slate-900 text-sm">Hài Lòng Với Ca Làm Này?</h3>
+              <p class="text-xs text-slate-500">Bạn có thể gửi đánh giá 5 sao và tip tiền cho cô Mai bất cứ lúc nào</p>
+            </div>
+            <button id="open-rating-btn" type="button" class="py-2.5 px-4 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-bold shadow-md transition-all flex items-center gap-1.5 cursor-pointer active:scale-95">
+              <span class="material-symbols-outlined text-base">grade</span>
+              <span>Đánh Giá & Tặng Tip 5★</span>
+            </button>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-xs text-slate-500">Cần hỗ trợ khẩn cấp hoặc khiếu nại?</span>
+            <button id="sos-hotline-btn" type="button" class="text-xs text-rose-700 font-bold hover:underline flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">emergency</span>
+              <span>SOS Trực Ban Vận Hành (1900 6868)</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initPlatformSwitcher } from './js/components/platformSwitcher.js';
+    initPlatformSwitcher();
+    if (window.lucide) window.lucide.createIcons();
+  </script>
+  <script type="module" src="./js/pages/tracking.js"></script>
+</body>
+</html>

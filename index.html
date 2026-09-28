@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="vi" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gia Đình Xanh - Nền Tảng Dịch Vụ Gia Đình 5 Sao</title>
+  <meta name="description" content="Hệ thống dịch vụ giúp việc, dọn dẹp nhà cửa và nấu ăn gia đình chuẩn 5 sao với đầy đủ phân hệ Khách hàng, Đối tác hiện trường và Quản trị vận hành." />
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind Play CDN with Theme Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#005c55',
+              dark: '#004742',
+              light: '#007a71',
+              50: '#e6f5f3'
+            },
+            secondary: {
+              DEFAULT: '#a73a00',
+              dark: '#852e00',
+              light: '#c74700'
+            },
+            surface: '#faf8ff'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="./css/theme.css" />
+  <link rel="stylesheet" href="./css/animations.css" />
+</head>
+<body class="h-full antialiased font-sans bg-[#F8FAFC] text-[#131B2E]">
+
+  <!-- Top App Bar -->
+  <header class="bg-white shadow-xs border-b border-slate-200 sticky top-0 z-40">
+    <div class="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-16">
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-6">
+        <a href="index.html" class="flex items-center gap-2 group text-left">
+          <div class="w-10 h-10 rounded-xl bg-[#0F766E] flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">yard</span>
+          </div>
+          <span class="text-xl font-bold text-[#005C55] tracking-tight">Gia Đình Xanh</span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center space-x-6 ml-4 text-sm font-semibold">
+          <a href="index.html" class="text-[#005C55] border-b-2 border-[#005C55] pb-1">Trang chủ</a>
+          <a href="customer-booking.html" class="text-slate-600 hover:text-[#005C55] transition-colors">Dọn dẹp</a>
+          <a href="customer-booking.html" class="text-slate-600 hover:text-[#005C55] transition-colors">Nấu ăn</a>
+          <a href="customer-appointments.html" class="text-slate-600 hover:text-[#005C55] transition-colors">Lịch hẹn của tôi</a>
+          <a href="customer-tracking.html" class="text-slate-600 hover:text-[#005C55] transition-colors">Theo dõi đơn (#GDX-89241)</a>
+        </nav>
+      </div>
+
+      <!-- Trailing Controls & User Portal Identity -->
+      <div class="flex items-center gap-3 md:gap-4">
+        <!-- Location Picker -->
+        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hover:border-[#005C55] transition-colors cursor-pointer text-xs font-semibold">
+          <span class="material-symbols-outlined text-[#005C55] text-[18px]">location_on</span>
+          <span>TP. Hồ Chí Minh / Quận 1</span>
+        </div>
+
+        <a href="customer-booking.html" class="bg-[#005C55] hover:bg-[#004742] text-white px-4 py-2 rounded-xl text-xs md:text-sm font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95">
+          <span class="material-symbols-outlined text-[18px]">add_circle</span>
+          <span>Đặt Lịch Ngay</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with Quick Booking Widget -->
+  <section class="relative bg-gradient-to-b from-teal-50/60 via-slate-50 to-white py-12 md:py-20 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left: Copy & Value Proposition -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-100 text-[#005C55] text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Tiêu chuẩn khách sạn 5 sao tại gia</span>
+          </div>
+
+          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            Nhà Cửa Sạch Bong, Cơm Ngon Tròn Vị Với <span class="text-[#005C55]">Gia Đình Xanh</span>
+          </h1>
+
+          <p class="text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl">
+            Nền tảng kết nối người giúp việc và đầu bếp gia đình đã qua kiểm tra lý lịch tư pháp, đào tạo chuyên sâu và thẩm định sức khỏe định kỳ. Trải nghiệm dịch vụ văn minh, an tâm tuyệt đối.
+          </p>
+
+          <!-- Core Badges -->
+          <div class="grid grid-cols-3 gap-4 pt-2 max-w-xl">
+            <div class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 shadow-xs">
+              <span class="material-symbols-outlined text-teal-600 text-2xl">verified_user</span>
+              <div class="text-xs">
+                <div class="font-bold text-slate-900">100% KYC</div>
+                <div class="text-slate-500">Lý lịch tư pháp</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 shadow-xs">
+              <span class="material-symbols-outlined text-teal-600 text-2xl">eco</span>
+              <div class="text-xs">
+                <div class="font-bold text-slate-900">Sinh học hữu cơ</div>
+                <div class="text-slate-500">An toàn bé & thú cưng</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 shadow-xs">
+              <span class="material-symbols-outlined text-teal-600 text-2xl">security</span>
+              <div class="text-xs">
+                <div class="font-bold text-slate-900">Bảo hiểm 50tr</div>
+                <div class="text-slate-500">Vỡ hỏng đồ đạc</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive Quick Booking Box -->
+        <div class="lg:col-span-5">
+          <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 space-y-5">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#005C55] text-2xl">flash_on</span>
+                <span class="font-bold text-slate-900 text-base">Đặt Dịch Vụ Nhanh (60 giây)</span>
+              </div>
+              <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Tiết kiệm 20%</span>
+            </div>
+
+            <form id="quick-book-form" class="space-y-4">
+              <!-- Service Switcher -->
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-2">Loại hình dịch vụ:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <label class="flex items-center justify-center gap-2 p-3 rounded-xl border border-teal-300 bg-teal-50 cursor-pointer font-bold text-xs text-[#005C55]">
+                    <input type="radio" name="serviceType" value="clean" checked class="text-[#005C55] focus:ring-0" />
+                    <span>Dọn Dẹp Căn Hộ</span>
+                  </label>
+                  <label class="flex items-center justify-center gap-2 p-3 rounded-xl border border-slate-200 hover:border-slate-300 cursor-pointer font-medium text-xs text-slate-700">
+                    <input type="radio" name="serviceType" value="cook" class="text-[#005C55] focus:ring-0" />
+                    <span>Nấu Ăn Gia Đình</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Address Input -->
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Địa chỉ phục vụ:</label>
+                <div class="relative">
+                  <span class="material-symbols-outlined absolute left-3 top-3 text-slate-400 text-lg">home</span>
+                  <input id="quick-address" type="text" class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-[#005C55] text-slate-800" value="Vinhomes Central Park, Bình Thạnh" placeholder="Nhập chung cư hoặc số nhà..." />
+                </div>
+              </div>
+
+              <!-- Date & Time Row -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Ngày làm việc:</label>
+                  <input type="text" readonly class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs bg-slate-50 text-slate-700 font-semibold" value="Hôm nay (25/10)" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Khung giờ vàng:</label>
+                  <input type="text" readonly class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs bg-slate-50 text-slate-700 font-semibold" value="08:30 - Sáng" />
+                </div>
+              </div>
+
+              <button type="submit" class="w-full py-3.5 bg-[#005C55] hover:bg-[#004742] text-white rounded-xl text-sm font-bold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98">
+                <span>Tiếp Tục Cấu Hình Dịch Vụ</span>
+                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 Core Services Grid -->
+  <section class="py-16 max-w-7xl mx-auto px-4 md:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Danh Mục Dịch Vụ Tiêu Chuẩn 5 Sao</h2>
+      <p class="text-slate-600 text-sm mt-2">Được thiết kế tinh tế đáp ứng từng nhu cầu sinh hoạt hàng ngày của gia đình bận rộn</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Service 1 -->
+      <div data-service="clean" class="service-quick-card bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-lg hover:border-[#005C55] transition-all cursor-pointer group flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-teal-50 text-[#005C55] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl">cleaning_services</span>
+          </div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">Dọn Dẹp Căn Hộ</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">Lau chùi phòng khách, phòng ngủ, cọ rửa toilet, dọn bếp và phân loại rác thải đúng chuẩn.</p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-[#005C55]">Từ 85.000đ/giờ</span>
+          <span class="text-xs font-semibold text-teal-700 flex items-center gap-0.5">Đặt ngay <span class="material-symbols-outlined text-sm">chevron_right</span></span>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div data-service="cook" class="service-quick-card bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-lg hover:border-[#005C55] transition-all cursor-pointer group flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-orange-50 text-[#FD651E] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl">restaurant</span>
+          </div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">Nấu Ăn Gia Đình</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">Đi chợ thực phẩm sạch, nấu mâm cơm 3-4 món chuẩn vị Bắc - Trung - Nam theo khẩu vị riêng của gia đình.</p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-[#FD651E]">Từ 110.000đ/giờ</span>
+          <span class="text-xs font-semibold text-orange-700 flex items-center gap-0.5">Đặt ngay <span class="material-symbols-outlined text-sm">chevron_right</span></span>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div data-service="deep-clean" class="service-quick-card bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-lg hover:border-[#005C55] transition-all cursor-pointer group flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl">sanitizer</span>
+          </div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">Tổng Vệ Sinh Sâu</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">Vệ sinh kính ban công cao tầng, tẩy cặn vôi vách tắm kính, hút bụi sâu đệm sofa và thảm trang trí.</p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-blue-600">Từ 130.000đ/giờ</span>
+          <span class="text-xs font-semibold text-blue-700 flex items-center gap-0.5">Đặt ngay <span class="material-symbols-outlined text-sm">chevron_right</span></span>
+        </div>
+      </div>
+
+      <!-- Service 4 -->
+      <div data-service="ironing" class="service-quick-card bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-lg hover:border-[#005C55] transition-all cursor-pointer group flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl">iron</span>
+          </div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">Ủi Đồ & Chăm Sóc Vải</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">Ủi phẳng phiu sơ mi, đầm dạ hội, phân loại đồ màu và treo ngăn nắp vào tủ quần áo phòng master.</p>
+        </div>
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-purple-600">+50.000đ/gói</span>
+          <span class="text-xs font-semibold text-purple-700 flex items-center gap-0.5">Đặt ngay <span class="material-symbols-outlined text-sm">chevron_right</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof Photos Before & After -->
+  <section class="py-12 bg-white border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Hình Ảnh Thực Tế Nghiệm Thu Tại Hiện Trường</h2>
+          <p class="text-xs md:text-sm text-slate-500 mt-1">Khách hàng giám sát trực tiếp ảnh Before/After gửi về ứng dụng</p>
+        </div>
+        <a href="customer-tracking.html" class="text-xs font-bold text-[#005C55] hover:underline flex items-center gap-1">
+          <span>Xem Live Tracking mẫu</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between text-xs font-bold">
+            <span class="text-slate-800">Khu vực bếp nấu & Máy hút mùi</span>
+            <span class="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Đạt chuẩn 5 sao</span>
+          </div>
+          <div class="overflow-hidden rounded-xl aspect-video bg-slate-200">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlRxY05BnCfwE4zyUi0gBPHZZMSMS3zV0SyZPYUpvWgfOLonWHWKLCahbc8P2jzn3poexN6oI9il1xbnx-DEdw4UwaTXHoSeFbxS9C9IYKaugPOiIaDKdXzuZAm3IlOqegI3rpbJkBNoIRTDkMvCyASJzrdXz5GQYE5_99rKF5THJJkXtgQv9fuUjB8-SvriYc91HJL99SZMNI2IBPOl7QLmrBTp2UWLp0jbhCKgAx64G0_-ZorJlMYw" alt="Bếp sau dọn" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+          </div>
+          <p class="text-xs text-slate-600">Đã tẩy sạch dầu mỡ két lâu ngày trên mặt đá marble và lưới lọc inox.</p>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between text-xs font-bold">
+            <span class="text-slate-800">Phòng khách & Ban công Masteri</span>
+            <span class="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Đạt chuẩn 5 sao</span>
+          </div>
+          <div class="overflow-hidden rounded-xl aspect-video bg-slate-200">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV9uNn2H6qRpe0TcZt2MaaG8webnUTUuZDjy0uBQJHofdMxFlICBuybJGmAFyU3tS1IV3gQJuH0JpeMqrDirazVRl2vRh2n0vpSKhVijNdBziE2060Xz5XUPQhzbd_vtVIUD1CtHWVhwRp6c_BlKhxNeOzqZfaKVCK63v-I-scocdQ-9npOMbOyBGcVqBxXa3XxS4Uoj-nfDnfDj6nP5hy62-htJYtMdJZ-SB4frxDZ3tNsKxx7A3OHw" alt="Phòng khách sau dọn" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+          </div>
+          <p class="text-xs text-slate-600">Lau sạch dấu vân tay trên vách kính lớn và hút bụi thảm lông cừu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-xs">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="space-y-3">
+        <div class="flex items-center gap-2 text-white font-extrabold text-lg">
+          <span class="material-symbols-outlined text-[#005C55]">yard</span>
+          <span>Gia Đình Xanh</span>
+        </div>
+        <p class="leading-relaxed">Nền tảng dịch vụ gia đình 5 sao với quy chuẩn khắt khe, minh bạch chi phí và an tâm tuyệt đối.</p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Phân Hệ Khách Hàng</h4>
+        <ul class="space-y-2">
+          <li><a href="customer-booking.html" class="hover:text-white transition-colors">Đặt dịch vụ dọn dẹp</a></li>
+          <li><a href="customer-booking.html" class="hover:text-white transition-colors">Đặt đầu bếp gia đình</a></li>
+          <li><a href="customer-tracking.html" class="hover:text-white transition-colors">Theo dõi đơn hàng</a></li>
+          <li><a href="customer-appointments.html" class="hover:text-white transition-colors">Lịch hẹn của tôi</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Dành Cho Đối Tác</h4>
+        <ul class="space-y-2">
+          <li><a href="partner-jobs.html" class="hover:text-white transition-colors">Sàn nhận việc GPS</a></li>
+          <li><a href="partner-shift.html" class="hover:text-white transition-colors">Ca làm việc hiện trường</a></li>
+          <li><a href="partner-wallet.html" class="hover:text-white transition-colors">Ví thu nhập & Đăng ký lịch</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Quản Trị Vận Hành</h4>
+        <ul class="space-y-2">
+          <li><a href="admin-dashboard.html" class="hover:text-white transition-colors">Bảng điều hành đơn</a></li>
+          <li><a href="admin-pricing.html" class="hover:text-white transition-colors">Chính sách biểu giá</a></li>
+          <li><a href="admin-kyc.html" class="hover:text-white transition-colors">Thẩm định hồ sơ KYC</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 mt-8 pt-8 border-t border-slate-800 flex items-center justify-between text-[11px]">
+      <div>© 2026 Gia Đình Xanh Platform. Chạy độc lập trên Python HTTP Server.</div>
+      <div class="flex items-center gap-4">
+        <span>Hotline: 1900 6868</span>
+        <span>Email: hotro@giadinhxanh.vn</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initPlatformSwitcher } from './js/components/platformSwitcher.js';
+    initPlatformSwitcher();
+    if (window.lucide) window.lucide.createIcons();
+  </script>
+  <script type="module" src="./js/pages/landing.js"></script>
+</body>
+</html>

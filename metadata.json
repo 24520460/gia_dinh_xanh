@@ -1,0 +1,7 @@
+{
+  "name": "Gia Đình Xanh - Nền Tảng Dịch Vụ Gia Đình 5 Sao",
+  "description": "Hệ thống dịch vụ giúp việc, dọn dẹp nhà cửa và nấu ăn gia đình chuẩn 5 sao với đầy đủ phân hệ Khách hàng, Đối tác hiện trường và Quản trị vận hành.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

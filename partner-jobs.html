@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="vi" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sàn Nhận Việc & Radar GPS - Gia Đình Xanh Partner</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind Play CDN with Theme Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#005c55',
+              dark: '#004742',
+              light: '#007a71',
+              50: '#e6f5f3'
+            },
+            secondary: {
+              DEFAULT: '#a73a00',
+              dark: '#852e00',
+              light: '#c74700'
+            },
+            surface: '#faf8ff'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="./css/theme.css" />
+  <link rel="stylesheet" href="./css/animations.css" />
+</head>
+<body class="bg-[#FAF8FF] text-[#131B2E] min-h-screen flex flex-col font-sans">
+
+  <!-- Partner Global Header -->
+  <header class="bg-white sticky top-0 z-40 shadow-xs border-b border-slate-200">
+    <div class="flex justify-between items-center w-full px-4 sm:px-6 py-3 max-w-7xl mx-auto">
+      <!-- Brand & Status -->
+      <div class="flex items-center gap-5">
+        <a href="partner-jobs.html" class="flex items-center gap-2.5 text-left">
+          <div class="w-10 h-10 rounded-xl bg-[#0F766E] flex items-center justify-center text-white shadow-xs">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">eco</span>
+          </div>
+          <div>
+            <span class="text-lg font-bold text-[#005C55] tracking-tight block">Gia Đình Xanh Partner</span>
+            <span class="text-[11px] text-slate-500 font-semibold block">Cổng việc làm gia đình chuẩn 5 sao</span>
+          </div>
+        </a>
+
+        <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+
+        <div class="hidden sm:flex items-center gap-2 bg-teal-50 border border-teal-200 px-3 py-1.5 rounded-full">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-500 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#005C55]"></span>
+          </span>
+          <span class="text-xs font-bold text-[#005C55]">Đang bật nhận việc (Trực tuyến)</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex items-center gap-2 sm:gap-4 text-xs font-bold">
+        <a href="partner-jobs.html" class="px-3 py-1.5 rounded-xl bg-[#005c55] text-white shadow-xs">Sàn Nhận Việc</a>
+        <a href="partner-shift.html" class="px-3 py-1.5 rounded-xl text-slate-600 hover:bg-slate-100">Ca Làm Hiện Trường</a>
+        <a href="partner-wallet.html" class="px-3 py-1.5 rounded-xl text-slate-600 hover:bg-slate-100">Ví & Lịch Rảnh</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full flex-1 space-y-6">
+
+    <!-- Top Radar Filter & Satellite Section -->
+    <div class="bg-slate-900 rounded-3xl p-6 text-white relative overflow-hidden shadow-2xl border border-slate-800">
+      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <h1 class="text-xl md:text-2xl font-black tracking-tight">Radar Định Vị Đơn Hàng Gần Nhất</h1>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Đang quét bán kính xung quanh vị trí hiện tại: Chung cư Masteri Thảo Điền</p>
+        </div>
+
+        <!-- Radius Filter Pills -->
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400 font-bold hidden sm:inline">Bán kính:</span>
+          <div class="flex gap-1.5">
+            <button type="button" data-radius="2km" class="radius-btn px-3 py-1 rounded-full text-xs font-bold transition-all bg-white text-slate-600 border border-slate-200 hover:border-teal-500 cursor-pointer">
+              2km
+            </button>
+            <button type="button" data-radius="5km" class="radius-btn px-3 py-1 rounded-full text-xs font-bold transition-all bg-[#005c55] text-white border border-[#005c55] cursor-pointer shadow-xs">
+              5km (Chuẩn)
+            </button>
+            <button type="button" data-radius="10km" class="radius-btn px-3 py-1 rounded-full text-xs font-bold transition-all bg-white text-slate-600 border border-slate-200 hover:border-teal-500 cursor-pointer">
+              10km
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Radar Visualization Simulated Map -->
+      <div class="relative mt-6 rounded-2xl overflow-hidden h-64 border border-slate-700 bg-slate-800 flex items-center justify-center">
+        <!-- Background Map -->
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfhVxR5bmz-7qLWcTxyrtkuSi3LTy6XKrWfGhx2vDnit3Z2PYBQAKGNOuyb_T-vsfAjhoyAk0kO0n4GQZf7-QDaUMxPp05VuHIN2yVvuLIOXCAafV1e4DyCMBShGu2jrolzYx-ggwkMUKt_VJ6k7lr8XUrnIYLIeZyTxrjtsFTlw_wg8ilW2P-2tnfUsHn4t7keSH0bgiGI0Pczeo_B-dUdyXmR91GVVO1bTn1lalp6LkrqHwdndBHTw" alt="Radar Map" class="absolute inset-0 w-full h-full object-cover opacity-40 filter saturate-50" />
+        
+        <!-- Radar Circles -->
+        <div class="absolute w-48 h-48 rounded-full border border-teal-500/30 animate-ping"></div>
+        <div class="absolute w-80 h-80 rounded-full border border-teal-400/20"></div>
+
+        <!-- Center Partner Pin -->
+        <div class="relative z-10 flex flex-col items-center">
+          <div class="w-10 h-10 rounded-full bg-[#005c55] text-white flex items-center justify-center shadow-lg border-2 border-white">
+            <span class="material-symbols-outlined text-lg">person_pin_circle</span>
+          </div>
+          <span class="text-[10px] font-bold bg-slate-900/90 px-2 py-0.5 rounded-full mt-1 border border-teal-500 text-teal-300">Vị trí của bạn</span>
+        </div>
+
+        <!-- Order Pin Point -->
+        <div class="absolute top-12 right-24 z-10 flex flex-col items-center cursor-pointer group">
+          <div class="w-8 h-8 rounded-full bg-rose-500 text-white flex items-center justify-center shadow-lg animate-bounce border border-white">
+            <span class="material-symbols-outlined text-base">emergency</span>
+          </div>
+          <span class="text-[10px] font-bold bg-rose-900 px-2 py-0.5 rounded-full text-white mt-0.5">#GDX-89239 (520k)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Urgent Order Flash Claim Box -->
+    <div class="bg-gradient-to-r from-orange-500 to-rose-600 rounded-3xl p-6 text-white shadow-xl relative overflow-hidden space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-2xl text-amber-200 animate-spin">alarm</span>
+          <span class="font-extrabold text-sm uppercase tracking-wider text-amber-100">Đơn Hàng Khẩn Cấp - Thưởng Thêm +40.000đ</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-medium">Hạn chót nhận việc:</span>
+          <span id="flash-timer-display" class="font-mono text-xl font-black bg-black/30 px-3 py-1 rounded-xl text-yellow-300">01:40</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="w-full bg-black/20 h-2 rounded-full overflow-hidden">
+        <div id="flash-timer-progress" class="bg-yellow-300 h-full w-full transition-all duration-1000"></div>
+      </div>
+
+      <!-- Urgent Card Inner -->
+      <div class="bg-white text-slate-900 rounded-2xl p-5 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-[#005c55] text-sm">#GDX-89239</span>
+            <span class="text-[10px] bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded-full">Khách cần ngay</span>
+          </div>
+          <h3 class="font-extrabold text-base text-slate-900">Tổng Vệ Sinh Nhà Cửa 4 Giờ</h3>
+          <p class="text-xs text-slate-600 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm text-slate-400">location_on</span>
+            <span>Sunrise City, Quận 7 (Cách bạn 2.4km) • Khung giờ: 15:30 - 19:30</span>
+          </p>
+        </div>
+
+        <div class="flex items-center gap-4 border-t md:border-t-0 pt-3 md:pt-0 justify-between">
+          <div class="text-right">
+            <div class="text-xs text-slate-400">Thực nhận về ví:</div>
+            <div class="text-xl font-black text-[#005c55]">426.400đ</div>
+          </div>
+          <button type="button" onclick="claimJob('#GDX-89239')" class="px-5 py-3 bg-[#005c55] hover:bg-[#0f766e] text-white rounded-xl text-xs font-extrabold shadow-lg transition-transform active:scale-95 flex items-center gap-1.5 cursor-pointer">
+            <span class="material-symbols-outlined text-base">check_circle</span>
+            <span>Nhận Việc Ngay</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Available Jobs List Section -->
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-extrabold text-slate-900">Danh Sách Ca Làm Đang Chờ Nhận Việc</h2>
+        <div class="flex gap-2">
+          <button type="button" data-filter="all" class="service-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-teal-50 text-[#005c55] border border-teal-200 cursor-pointer">Tất cả</button>
+          <button type="button" data-filter="clean" class="service-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer">Dọn dẹp</button>
+          <button type="button" data-filter="cook" class="service-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer">Nấu ăn</button>
+        </div>
+      </div>
+
+      <div id="available-jobs-list" class="space-y-3">
+        <!-- Rendered by partnerJobs.js -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initPlatformSwitcher } from './js/components/platformSwitcher.js';
+    initPlatformSwitcher();
+    if (window.lucide) window.lucide.createIcons();
+  </script>
+  <script type="module" src="./js/pages/partnerJobs.js"></script>
+</body>
+</html>
