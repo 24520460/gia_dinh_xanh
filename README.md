@@ -1,64 +1,87 @@
-# Gia Đình Xanh - Nền Tảng Dịch Vụ Gia Đình 5 Sao
-## Kiến Trúc Static Web Native (HTML5, CSS3 & ES Modules)
+# Gia Đình Xanh — Nền Tảng Dịch Vụ Gia Đình 5 Sao (Monorepo)
 
-Dự án đã được tái cấu trúc toàn diện thành nền tảng **Static Web Native** độc lập:
-- **Không cần công cụ đóng gói:** Loại bỏ hoàn toàn Node.js, Vite, npm, build step.
-- **Khởi chạy tức thì (Zero-Config):** Chạy trực tiếp chỉ với một lệnh duy nhất.
-- **Chia sẻ trạng thái qua LocalStorage:** Luồng dữ liệu giữa Khách hàng, Đối tác và Quản trị viên được đồng bộ tự động.
+Nền tảng sàn dịch vụ gia đình 3 bên (**Khách hàng**, **Đối tác/Thợ hiện trường**, **Quản trị vận hành**) được quy hoạch theo kiến trúc **Monorepo (`pnpm` Workspaces + `Turborepo`)** kết hợp cơ sở dữ liệu đám mây **Supabase (Managed PostgreSQL 16 + PostGIS + pgcrypto)**, loại bỏ hoàn toàn gánh nặng chạy Docker cục bộ.
 
 ---
 
-## Khởi Chạy Nhanh (Instant Run)
+## 1. Kiến Trúc Tổng Quan & Ngăn Xếp Công Nghệ
 
-### 1. Yêu cầu duy nhất
-Máy tính đã cài đặt sẵn **Python** (phiên bản 3.x).
-
-### 2. Lệnh khởi chạy
-Mở cửa sổ dòng lệnh (Terminal / Command Prompt / PowerShell) tại thư mục dự án và chạy:
-
-```bash
-# Trên Windows:
-py -m http.server 8000
-
-# Hoặc:
-python -m http.server 8000
-
-# Trên macOS / Linux:
-python3 -m http.server 8000
-```
-
-### 3. Trải nghiệm ứng dụng
-Mở trình duyệt bất kỳ và truy cập:
-👉 **[http://localhost:8000](http://localhost:8000)**
-
-Nhìn xuống góc dưới bên phải màn hình: Nhấp vào nút **"10 Màn Hình Demo"** để chuyển đổi tức thì giữa các phân hệ:
-- **Phân hệ Khách hàng:** Trang chủ (`index.html`), Cấu hình đặt lịch (`customer-booking.html`), Theo dõi live (`customer-tracking.html`), Lịch hẹn & đánh giá (`customer-appointments.html`).
-- **Phân hệ Đối tác:** Sàn nhận việc radar GPS (`partner-jobs.html`), Ca làm việc & checklist (`partner-shift.html`), Quản lý ví & lịch rảnh (`partner-wallet.html`).
-- **Phân hệ Quản trị:** Bảng điều hành (`admin-dashboard.html`), Sandbox chính sách giá (`admin-pricing.html`), Thẩm định KYC (`admin-kyc.html`).
+| Tầng kiến trúc | Công nghệ | Vai trò |
+|---|---|---|
+| **Monorepo Manager** | `pnpm` Workspaces + `Turborepo` | Quản lý phụ thuộc cô lập, chống phantom dependencies, chạy song song và cache tác vụ build/dev. |
+| **Frontend (`apps/web`)** | React 19, Vite 6, Tailwind CSS v4, Motion, Lucide Icons, Axios | Trải nghiệm 10 màn hình chức năng của 3 phân hệ, tốc độ khởi động tức thì. |
+| **Backend (`apps/api`)** | NestJS 10, TypeORM, Passport JWT, Class Validator | Kiến trúc 11 Domain Modules, RBAC Guards, Exception Filters, kết nối Supabase qua SSL Pooler. |
+| **Shared (`packages/*`)** | `@gdx/shared-types`, `@gdx/tsconfig` | Đồng bộ Types, Enums, Interfaces, DTOs và cấu hình TypeScript giữa Frontend và Backend. |
+| **Database (`supabase/`)** | Supabase Cloud (PostgreSQL 16 + PostGIS + pgcrypto) | CSDL đám mây không xung đột cổng 5432 cục bộ, tích hợp radar không gian GiST và mã hóa tài chính. |
 
 ---
 
-## Cấu Trúc Mã Nguồn
+## 2. Cấu Trúc Thư Mục Monorepo
 
 ```text
-├── index.html                     # [Customer] Trang chủ & Đặt nhanh
-├── customer-booking.html          # [Customer] Wizard cấu hình dịch vụ & Đặt hẹn
-├── customer-tracking.html         # [Customer] Giám sát ca làm việc Live & Đánh giá 5 sao
-├── customer-appointments.html     # [Customer] Danh sách lịch hẹn & Lịch sử dịch vụ
-├── partner-jobs.html              # [Partner] Sàn nhận việc khẩn cấp & Radar GPS
-├── partner-shift.html             # [Partner] Ca làm việc trực tiếp, Đồng hồ & Checklist
-├── partner-wallet.html            # [Partner] Ví thu nhập & Ma trận đăng ký lịch rảnh
-├── admin-dashboard.html           # [Admin] Điều hành đơn hàng & Điều phối thợ
-├── admin-pricing.html             # [Admin] Công cụ mô phỏng chính sách giá Dynamic
-├── admin-kyc.html                 # [Admin] Thẩm định hồ sơ đối tác 4 bước
-├── css/
-│   ├── theme.css                  # Biến màu sắc chuẩn CSS (:root), typography & reset
-│   └── animations.css             # Keyframe animations (radar pulse, modal bounce, toast)
-└── js/
-    ├── data/mockData.js           # Dữ liệu khởi tạo ES Module
-    ├── store.js                   # Quản trị State tập trung qua localStorage & Event Bus
-    ├── components/
-    │   ├── platformSwitcher.js    # Thanh điều hướng nổi 10 màn hình
-    │   └── ratingModal.js         # Popup đánh giá 5 sao & Tip tiền
-    └── pages/                     # Logic tương tác DOM riêng biệt cho 10 trang
+gia-dinh-xanh/
+├── apps/
+│   ├── api/                        # [BACKEND] Ứng dụng máy chủ NestJS (@gdx/api - Port 4000)
+│   └── web/                        # [FRONTEND] Ứng dụng React 19 + Vite (@gdx/web - Port 3000)
+├── packages/
+│   ├── shared-types/               # Types, Enums, Interfaces, DTOs dùng chung (@gdx/shared-types)
+│   └── tsconfig/                   # Cấu hình TypeScript cơ sở (@gdx/tsconfig)
+├── supabase/
+│   └── migrations/
+│       └── 00001_init_schema_v2.sql # Script kích hoạt PostGIS, pgcrypto, uuid-ossp & Schema v2.0.0
+├── docs/                           # Tài liệu kiến trúc (ARCHITECTURE.md, SERVICES.md, ONBOARDING.md)
+├── .nvmrc                          # Khóa phiên bản Node.js (v20)
+├── package.json                    # Root scripts điều phối Turborepo
+├── pnpm-workspace.yaml             # Khai báo pnpm workspaces
+└── turbo.json                      # Pipeline Turborepo
+```
+
+---
+
+## 3. Hướng Dẫn Khởi Chạy Nhanh (Zero Docker)
+
+### Bước 1: Chuẩn bị Node.js & `pnpm`
+```bash
+corepack enable
+corepack prepare pnpm@latest --activate
+```
+
+### Bước 2: Thiết lập biến môi trường
+```bash
+cp apps/api/.env.example apps/api/.env
+cp apps/web/.env.example apps/web/.env
+```
+*(Điền chuỗi kết nối `DATABASE_URL` từ Supabase Dashboard vào `apps/api/.env`)*.
+
+### Bước 3: Cài đặt phụ thuộc & Khởi chạy
+```bash
+pnpm install
+pnpm run dev
+```
+
+- **Frontend (`@gdx/web`):** [http://localhost:3000](http://localhost:3000)
+- **Backend API (`@gdx/api`):** [http://localhost:4000/api/health](http://localhost:4000/api/health)
+
+---
+
+## 4. Sổ Tay Lệnh Thường Dùng (Developer Cheatsheet)
+
+```bash
+# Chạy đồng thời cả Frontend và Backend (Hot-reload)
+pnpm run dev
+
+# Chỉ chạy giao diện Frontend (Port 3000)
+pnpm run dev:web
+
+# Chỉ chạy máy chủ Backend API (Port 4000)
+pnpm run dev:api
+
+# Kiểm tra kiểu dữ liệu (Type-check) toàn Monorepo
+pnpm run lint
+
+# Build toàn bộ các gói và ứng dụng
+pnpm run build
+
+# Chạy Migration TypeORM lên Supabase PostgreSQL
+pnpm run db:migrate
 ```

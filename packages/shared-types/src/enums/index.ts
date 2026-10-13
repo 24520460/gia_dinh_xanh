@@ -1,0 +1,98 @@
+// =============================================================================
+// GIA ĐÌNH XANH — SHARED ENUMS (Đồng bộ 100% với CHECK constraints CSDL v2.1)
+// =============================================================================
+
+export type UserRole = 'customer' | 'partner' | 'admin';
+export type UserStatus = 'active' | 'suspended' | 'inactive';
+export type OtpPurpose = 'login' | 'register' | 'reset_password';
+
+export type ServiceCode = 'CLEANING' | 'COOKING' | 'LAUNDRY' | 'DEEP_CLEAN';
+export type AddonCode = 'BRING_TOOLS' | 'IRONING';
+export type PricingDayType = 'all' | 'weekday' | 'weekend' | 'holiday';
+export type PricingSlotType = 'all' | 'morning' | 'afternoon' | 'evening';
+export type VoucherDiscountType = 'percent' | 'fixed';
+
+export type CriminalRecordStatus = 'pending' | 'clear' | 'rejected';
+export type KycStatus = 'pending' | 'needs_update' | 'approved' | 'rejected';
+export type KycDocType =
+  | 'cccd_front'
+  | 'cccd_back'
+  | 'criminal_record'
+  | 'health_cert'
+  | 'skill_certificate';
+export type KycVerificationStatus = 'pending' | 'approved' | 'rejected';
+
+export type ScheduledSlot = 'morning' | 'afternoon' | 'evening';
+export type SlotType = ScheduledSlot;
+export type ScheduleStatus = 'off' | 'available' | 'booked';
+
+export type OrderStatus =
+  | 'pending_payment'
+  | 'payment_failed'
+  | 'waiting_partner'
+  | 'partner_assigned'
+  | 'in_transit'
+  | 'in_progress'
+  | 'completed'
+  | 'dispute'
+  | 'cancelled';
+
+export type PaymentMethodType =
+  | 'bank_card'
+  | 'momo'
+  | 'vnpay'
+  | 'zalopay'
+  | 'customer_wallet';
+export type PaymentGateway = 'vnpay' | 'momo' | 'zalopay' | 'customer_wallet';
+export type PaymentStatus =
+  | 'initiated'
+  | 'pending'
+  | 'successful'
+  | 'failed'
+  | 'refunded';
+
+export type CustomerWalletTxType =
+  | 'topup'
+  | 'order_payment'
+  | 'refund'
+  | 'adjustment';
+
+export type ShiftTimerStatus =
+  | 'not_started'
+  | 'running'
+  | 'paused'
+  | 'completed'
+  | 'abandoned';
+export type ShiftEvidenceStage = 'before' | 'after';
+
+export type PayoutStatus = 'pending' | 'approved' | 'rejected' | 'transferred';
+export type PartnerWalletTxType =
+  | 'job_earning'
+  | 'tip_income'
+  | 'withdrawal_lock'
+  | 'withdrawal_release'
+  | 'withdrawal_completed'
+  | 'penalty_deduction'
+  | 'adjustment';
+
+export type LedgerAccountCode =
+  | 'CASH_GATEWAY'
+  | 'CUSTOMER_WALLET'
+  | 'PARTNER_PAYABLE'
+  | 'PLATFORM_REVENUE'
+  | 'VOUCHER_EXPENSE'
+  | 'REFUND_PAYABLE';
+
+export type DisputeStatus = 'open' | 'under_review' | 'resolved' | 'rejected';
+
+export type ScreenId =
+  | 'customer-landing'
+  | 'customer-booking'
+  | 'customer-tracking'
+  | 'customer-appointments'
+  | 'partner-shift'
+  | 'partner-board'
+  | 'partner-wallet'
+  | 'admin-dashboard'
+  | 'admin-pricing'
+  | 'admin-kyc';
