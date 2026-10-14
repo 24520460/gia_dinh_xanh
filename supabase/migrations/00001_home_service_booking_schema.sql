@@ -1,17 +1,16 @@
 -- Home Service Booking Platform schema for Supabase PostgreSQL.
--- User identities remain UUIDs because they originate from auth.users.
 
 BEGIN;
 
-CREATE TABLE public.province (
+CREATE TABLE public.provinces (
   "provinceId" VARCHAR(2) PRIMARY KEY,
   name VARCHAR(150) NOT NULL
 );
 
-CREATE TABLE public.ward (
+CREATE TABLE public.wards (
   ward_id VARCHAR(8) PRIMARY KEY,
   name VARCHAR(150) NOT NULL,
-  "provinceId" VARCHAR(2) NOT NULL REFERENCES public.province("provinceId") ON UPDATE CASCADE
+  "provinceId" VARCHAR(2) NOT NULL REFERENCES public.provinces("provinceId") ON UPDATE CASCADE
 );
 
 CREATE TABLE public.users (
@@ -25,10 +24,10 @@ CREATE TABLE public.users (
 );
 
 CREATE TABLE public.customer_profiles (
-  customer_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  customer_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL UNIQUE REFERENCES public.users(user_id) ON DELETE CASCADE,
   default_address TEXT,
-  ward_id VARCHAR(8) NOT NULL REFERENCES public.ward(ward_id),
+  ward_id VARCHAR(8) NOT NULL REFERENCES public.wards(ward_id),
   latitude NUMERIC(10,8),
   longitude NUMERIC(11,8),
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -38,7 +37,7 @@ CREATE TABLE public.customer_profiles (
 );
 
 CREATE TABLE public.provider_profiles (
-  provider_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  provider_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL UNIQUE REFERENCES public.users(user_id) ON DELETE CASCADE,
   info TEXT,
   id_card_number VARCHAR(20) UNIQUE,
@@ -57,8 +56,8 @@ CREATE TABLE public.provider_profiles (
 );
 
 CREATE TABLE public.service_categories (
-  category_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  parent_id INT REFERENCES public.service_categories(category_id),
+  category_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  parent_id UUID REFERENCES public.service_categories(category_id),
   category_name VARCHAR(100) NOT NULL,
   slug VARCHAR(120) UNIQUE NOT NULL,
   description TEXT,
@@ -67,8 +66,8 @@ CREATE TABLE public.service_categories (
 );
 
 CREATE TABLE public.services (
-  service_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  category_id INT NOT NULL REFERENCES public.service_categories(category_id),
+  service_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id UUID NOT NULL REFERENCES public.service_categories(category_id),
   title VARCHAR(150) NOT NULL,
   description TEXT,
   price NUMERIC(10,2) NOT NULL CHECK (price >= 0),
@@ -80,22 +79,22 @@ CREATE TABLE public.services (
 );
 
 CREATE TABLE public.provider_services (
-  id_pro_ser BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  provider_id BIGINT NOT NULL REFERENCES public.provider_profiles(provider_id) ON DELETE CASCADE,
-  service_id BIGINT NOT NULL REFERENCES public.services(service_id) ON DELETE CASCADE,
+  id_pro_ser UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  provider_id UUID NOT NULL REFERENCES public.provider_profiles(provider_id) ON DELETE CASCADE,
+  service_id UUID NOT NULL REFERENCES public.services(service_id) ON DELETE CASCADE,
   UNIQUE (provider_id, service_id)
 );
 
 CREATE TABLE public.provider_areas (
-  area_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  provider_id BIGINT NOT NULL REFERENCES public.provider_profiles(provider_id) ON DELETE CASCADE,
-  ward_id VARCHAR(8) NOT NULL REFERENCES public.ward(ward_id),
+  area_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  provider_id UUID NOT NULL REFERENCES public.provider_profiles(provider_id) ON DELETE CASCADE,
+  ward_id VARCHAR(8) NOT NULL REFERENCES public.wards(ward_id),
   UNIQUE (provider_id, ward_id)
 );
 
 CREATE TABLE public.availability_schedules (
-  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  provider_id BIGINT NOT NULL REFERENCES public.provider_profiles(provider_id) ON DELETE CASCADE,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  provider_id UUID NOT NULL REFERENCES public.provider_profiles(provider_id) ON DELETE CASCADE,
   day_of_week SMALLINT NOT NULL CHECK (day_of_week BETWEEN 0 AND 6),
   start_time TIME NOT NULL,
   end_time TIME NOT NULL,
@@ -105,8 +104,8 @@ CREATE TABLE public.availability_schedules (
 );
 
 CREATE TABLE public.availability_exceptions (
-  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  provider_id BIGINT NOT NULL REFERENCES public.provider_profiles(provider_id) ON DELETE CASCADE,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  provider_id UUID NOT NULL REFERENCES public.provider_profiles(provider_id) ON DELETE CASCADE,
   exception_date DATE NOT NULL,
   start_time TIME NOT NULL,
   end_time TIME NOT NULL,
@@ -116,13 +115,13 @@ CREATE TABLE public.availability_exceptions (
 );
 
 CREATE TABLE public.bookings (
-  booking_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  customer_id BIGINT NOT NULL REFERENCES public.customer_profiles(customer_id),
-  provider_id BIGINT NOT NULL REFERENCES public.provider_profiles(provider_id),
-  service_id BIGINT NOT NULL REFERENCES public.services(service_id),
+  booking_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  customer_id UUID NOT NULL REFERENCES public.customer_profiles(customer_id),
+  provider_id UUID NOT NULL REFERENCES public.provider_profiles(provider_id),
+  service_id UUID NOT NULL REFERENCES public.services(service_id),
   scheduled_time TIMESTAMPTZ NOT NULL,
   address TEXT NOT NULL,
-  ward_id VARCHAR(8) NOT NULL REFERENCES public.ward(ward_id),
+  ward_id VARCHAR(8) NOT NULL REFERENCES public.wards(ward_id),
   latitude NUMERIC(10,8),
   longitude NUMERIC(11,8),
   total_incidental NUMERIC(10,2) NOT NULL DEFAULT 0 CHECK (total_incidental >= 0),
@@ -137,8 +136,8 @@ CREATE TABLE public.bookings (
 );
 
 CREATE TABLE public.booking_status_history (
-  history_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  booking_id BIGINT NOT NULL REFERENCES public.bookings(booking_id) ON DELETE CASCADE,
+  history_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  booking_id UUID NOT NULL REFERENCES public.bookings(booking_id) ON DELETE CASCADE,
   previous_status VARCHAR(50),
   new_status VARCHAR(50) NOT NULL,
   changed_by UUID NOT NULL REFERENCES public.users(user_id),
@@ -147,27 +146,27 @@ CREATE TABLE public.booking_status_history (
 );
 
 CREATE TABLE public.reviews (
-  review_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  booking_id BIGINT NOT NULL UNIQUE REFERENCES public.bookings(booking_id),
-  customer_id BIGINT NOT NULL REFERENCES public.customer_profiles(customer_id),
-  provider_id BIGINT NOT NULL REFERENCES public.provider_profiles(provider_id),
+  review_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  booking_id UUID NOT NULL UNIQUE REFERENCES public.bookings(booking_id),
+  customer_id UUID NOT NULL REFERENCES public.customer_profiles(customer_id),
+  provider_id UUID NOT NULL REFERENCES public.provider_profiles(provider_id),
   rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
   comment TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE public.favorites (
-  favorite_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  customer_id BIGINT NOT NULL REFERENCES public.customer_profiles(customer_id) ON DELETE CASCADE,
-  service_id BIGINT NOT NULL REFERENCES public.services(service_id) ON DELETE CASCADE,
+  favorite_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  customer_id UUID NOT NULL REFERENCES public.customer_profiles(customer_id) ON DELETE CASCADE,
+  service_id UUID NOT NULL REFERENCES public.services(service_id) ON DELETE CASCADE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE (customer_id, service_id)
 );
 
 CREATE TABLE public.support_tickets (
-  ticket_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  ticket_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES public.users(user_id),
-  booking_id BIGINT REFERENCES public.bookings(booking_id),
+  booking_id UUID REFERENCES public.bookings(booking_id),
   subject VARCHAR(200) NOT NULL,
   status VARCHAR(20) NOT NULL DEFAULT 'open'
     CHECK (status IN ('open', 'in_progress', 'resolved', 'closed')),
@@ -177,7 +176,7 @@ CREATE TABLE public.support_tickets (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_ward_province ON public.ward("provinceId");
+CREATE INDEX idx_ward_province ON public.wards("provinceId");
 CREATE INDEX idx_services_category ON public.services(category_id);
 CREATE INDEX idx_provider_services_service ON public.provider_services(service_id);
 CREATE INDEX idx_provider_areas_provider ON public.provider_areas(provider_id);
@@ -207,8 +206,8 @@ FOR EACH ROW EXECUTE FUNCTION public.set_schema_updated_at();
 CREATE TRIGGER support_tickets_updated_at BEFORE UPDATE ON public.support_tickets
 FOR EACH ROW EXECUTE FUNCTION public.set_schema_updated_at();
 
-ALTER TABLE public.province ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.ward ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.provinces ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.wards ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.customer_profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.provider_profiles ENABLE ROW LEVEL SECURITY;
@@ -224,8 +223,8 @@ ALTER TABLE public.reviews ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.favorites ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.support_tickets ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY province_read ON public.province FOR SELECT TO anon, authenticated USING (true);
-CREATE POLICY ward_read ON public.ward FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY province_read ON public.provinces FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY ward_read ON public.wards FOR SELECT TO anon, authenticated USING (true);
 CREATE POLICY service_categories_read ON public.service_categories FOR SELECT TO anon, authenticated USING (status);
 CREATE POLICY services_read ON public.services FOR SELECT TO anon, authenticated USING (is_active);
 
